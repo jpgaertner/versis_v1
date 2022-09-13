@@ -8,7 +8,7 @@ from versis.fill_overlap import fill_overlap
 
 @veros_kernel
 def limiter(Cr):
-    
+
     #return 0       (upwind)
     #return 1       (Lax-Wendroff)
     #return np.max((0, np.min((1, Cr))))    (Min-Mod)

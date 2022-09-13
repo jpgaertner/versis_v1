@@ -5,8 +5,7 @@ from veros import veros_kernel
 @veros_kernel
 def fill_overlap(state, A):
     '''
-    fills the overlaps of a field of size (ny+2*oly, nx+2*olx) where
-    [oly:-oly,olx:-olx] is the actual cell (requires n > ol)
+    fills the overlaps of a field A
     '''
 
     olx = state.settings.olx

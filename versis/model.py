@@ -13,7 +13,7 @@ from versis.copy_veros_variables import copy_input, copy_output
 @veros_routine
 def model(state):
 
-    # # copy veros variables onto local ones
+    # copy veros variables onto local ones
     copy_input(state)
 
     # calculate sea ice mass centered around c, u, v points
@@ -46,5 +46,5 @@ def model(state):
     # calculate thermodynamic ice growth
     update_Growth(state)
 
-    #copy local variables onto veros
+    # copy local variables onto veros
     copy_output(state)
