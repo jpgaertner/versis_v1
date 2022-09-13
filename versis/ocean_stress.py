@@ -34,13 +34,9 @@ def calc_OceanStress(state):
         + npx.sign(state.variables.fCori) * sinWat * 0.5 * (
             cDrag * duAtC + npx.roll(cDrag * duAtC,1,1) )
 
-    # calculate ice cover area centered around u- and v-points
-    areaW = 0.5 * (state.variables.Area + npx.roll(state.variables.Area,1,1))
-    areaS = 0.5 * (state.variables.Area + npx.roll(state.variables.Area,1,0))
-
     # update forcing for ice covered area
-    fu = (1 - areaW) * state.variables.fu + areaW * fuLoc
-    fv = (1 - areaS) * state.variables.fv + areaS * fvLoc
+    fu = (1 - state.variables.AreaW) * state.variables.fu + state.variables.AreaW * fuLoc
+    fv = (1 - state.variables.AreaS) * state.variables.fv + state.variables.AreaS * fvLoc
 
     # fill overlaps
     fu, fv = fill_overlap_uv(state,fu,fv)
