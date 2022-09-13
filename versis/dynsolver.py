@@ -1,7 +1,7 @@
 from veros.core.operators import numpy as npx
 from veros import veros_routine, veros_kernel, KernelOutput
 
-from versis.parameters import recip_rhoConst, gravity
+from versis.parameters import recip_rhoSea, gravity
 from versis.freedrift_solver import freedrift_solver
 from versis.evp_solver import evp_solver
 from versis.surface_forcing import surface_forcing
@@ -19,14 +19,15 @@ def calc_SurfaceForcing(state):
     WindForcingX = tauX * 0.5 * (state.variables.Area + npx.roll(state.variables.Area,1,1))
     WindForcingY = tauY * 0.5 * (state.variables.Area + npx.roll(state.variables.Area,1,0))
 
-    # calculate actual sea surface height/ geopotential height anomaly
+    # calculate geopotential anomaly
+    # TODO: is the surfPress term even part of the geopotential?
     phiSurf = gravity * state.variables.ssh_an
     if state.settings.useRealFreshWaterFlux:
         phiSurf = phiSurf + (state.variables.surfPress \
                     + state.variables.SeaIceLoad * gravity * state.settings.seaIceLoadFac #??? why two flags?
-                             ) * recip_rhoConst
+                             ) * recip_rhoSea
     else:
-        phiSurf = phiSurf + state.variables.surfPress * recip_rhoConst
+        phiSurf = phiSurf + state.variables.surfPress * recip_rhoSea
 
     # add in tilt
     WindForcingX = WindForcingX - state.variables.SeaIceMassU \

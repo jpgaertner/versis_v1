@@ -1,7 +1,7 @@
 from veros.core.operators import numpy as npx
 from veros import veros_kernel
 
-from versis.parameters import rhoIce, rhoConst, waterIceDrag, waterIceDrag_south
+from versis.parameters import rhoIce, rhoSea, waterIceDrag, waterIceDrag_south
 
 
 @veros_kernel
@@ -34,7 +34,7 @@ def freedrift_solver(state):
 
     # solve for norm
     south = (state.variables.fCori < 0)
-    tmp1 = 1 / (npx.where(south, waterIceDrag_south, waterIceDrag) * rhoConst)
+    tmp1 = 1 / (npx.where(south, waterIceDrag_south, waterIceDrag) * rhoSea)
     tmp2 = tmp1**2 * mIceCor**2
     tmp3 = tmp1**2 * rhsN**2
     tmp4 = tmp2**2 + 4 * tmp3

@@ -267,7 +267,7 @@ def calc_growth(state):
 
     tmpscal0 = 0.4
     tmpscal1 = 7 / tmpscal0
-    tmpscal2 = stantonNr * uStarBase * rhoConst * heatCapacity
+    tmpscal2 = stantonNr * uStarBase * rhoSea * heatCapacity
 
     # the ocean temperature cannot be lower than the freezing temperature
     surf_theta = npx.maximum(state.variables.theta, TempFrz)
@@ -343,7 +343,7 @@ def calc_growth(state):
 
     # change of ice thickness due to conversion of snow to ice if snow
     # is submerged with water
-    h_sub = (hSnowMean * rhoSnow + hIceMean * rhoIce) * recip_rhoConst
+    h_sub = (hSnowMean * rhoSnow + hIceMean * rhoIce) * recip_rhoSea
     d_hIceMeanByFlood = npx.maximum(0, h_sub - hIceMean)
     hIceMean = hIceMean + d_hIceMeanByFlood
     hSnowMean = hSnowMean - d_hIceMeanByFlood * rhoIce2rhoSnow
@@ -400,7 +400,7 @@ def calc_growth(state):
     # the freshwater contribution to the ocean from melting snow [m]
     FreshwaterContribFromSnowMelt = ActualNewTotalSnowMelt / rhoFresh2rhoSnow
 
-    # evaporation minus precipitation minus runoff (freshwater/ salt? #??? flux to ocean)
+    # evaporation minus precipitation minus runoff (salt flux into ocean)
     EmPmR = state.variables.iceMask *  ((state.variables.evap - state.variables.precip) * (1 - AreapreTH) \
         - PrecipRateOverIceSurfaceToSea * AreapreTH - state.variables.runoff - (
         FreshwaterContribFromIce + FreshwaterContribFromSnowMelt) \
@@ -422,6 +422,7 @@ def calc_growth(state):
                         Qsw = Qsw,
                         Qnet = Qnet,
                         SeaIceLoad = SeaIceLoad,
+                        #TODO remove this
                         F_lh = F_lh, F_lwu = F_lwu, F_sens = F_sens, q_s = q_s,
                         F_ia_net = F_ia_net, F_io_net = F_io_net, F_oi = F_oi,
                         IceGrowthRateMixedLayer=IceGrowthRateMixedLayer,

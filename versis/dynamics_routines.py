@@ -32,7 +32,7 @@ def ocean_drag_coeffs(state,uIce,vIce):
     '''
 
     # get ice-water drag coefficient times density
-    dragCoeff = npx.where(state.variables.fCori < 0, waterIceDrag_south, waterIceDrag) * rhoConst
+    dragCoeff = npx.where(state.variables.fCori < 0, waterIceDrag_south, waterIceDrag) * rhoSea
 
     # calculate component-wise velocity differences at velocity points
     du = (uIce - state.variables.uOcean)*state.variables.maskInU

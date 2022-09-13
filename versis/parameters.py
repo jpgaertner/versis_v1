@@ -1,7 +1,7 @@
 from veros.core.operators import numpy as npx
 
 
-growthTesting = True    # for comparing the thermodynamics with the MITgcm
+growthTesting = False    # for comparing the thermodynamics with the MITgcm
 printSolve4TempVars = False  # for printing the solve4temp inputs and outputs
 
 
@@ -10,16 +10,16 @@ printSolve4TempVars = False  # for printing the solve4temp inputs and outputs
 if growthTesting:
     rhoIce = 910
     rhoFresh = 999.8
-    rhoConst = 1027
+    rhoSea = 1027
     rhoAir = 1.2
 else:
     rhoIce = 900        # density of ice
     rhoFresh = 1000     # density of fresh water
-    rhoConst = 1026     # constant reference density of sea water (Boussineq approximation)
+    rhoSea = 1026     # constant reference density of sea water (Boussineq approximation)
     rhoAir = 1.3        # density of air
 rhoSnow = 330       # density of snow
 recip_rhoFresh = 1 / rhoFresh
-recip_rhoConst = 1 / rhoConst
+recip_rhoSea = 1 / rhoSea
 rhoIce2rhoSnow     = rhoIce / rhoSnow
 rhoIce2rhoFresh = rhoIce / rhoFresh
 rhoFresh2rhoSnow = rhoFresh / rhoSnow
