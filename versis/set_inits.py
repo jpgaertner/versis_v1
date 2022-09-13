@@ -47,11 +47,11 @@ def set_inits(state):
     vs.iceMaskV = vs.maskInV
 
 
-    vs.hIceMean = npx.ones_like(vs.iceMask) * 1.3
-    vs.hSnowMean = npx.ones_like(vs.iceMask) * 0.1
-    vs.Area = npx.ones_like(vs.iceMask) * 0.9
-    vs.TIceSnow = npx.ones((*vs.iceMask.shape,st.nITC)) * 273
-    # vs.TIceSnow = npx.ones((*vs.iceMask.shape,15)) * 273
+    vs.hIceMean = npx.ones_like(vs.iceMask) * 0
+    vs.hSnowMean = npx.ones_like(vs.iceMask) * 0
+    vs.Area = npx.ones_like(vs.iceMask) * 0
+    # vs.TIceSnow = npx.ones((*vs.iceMask.shape,st.nITC)) * 273
+    vs.TIceSnow = npx.ones((*vs.iceMask.shape,15)) * 273
     vs.wSpeed = npx.ones_like(vs.iceMask) * 2#5
     vs.ocSalt = npx.ones_like(vs.iceMask) * 29
     vs.theta = npx.ones_like(vs.iceMask) * celsius2K - 2
